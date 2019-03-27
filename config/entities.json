@@ -35,8 +35,7 @@
     "color": "rs",
     "interactions": {
       "no-item": {
-        "message": "Ciao, sono Topolino! Per ottenere la chiave devi darmi il tuo lanciafiamme
-         sei pericoloso 🧐 "
+        "message": "Ciao, sono Topolino! Per ottenere la chiave devi darmi il tuo lanciafiamme ... sei pericoloso 🧐 "
       },
       "L":{
         "message": "Grazie!",
