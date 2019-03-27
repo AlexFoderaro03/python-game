@@ -35,7 +35,8 @@
     "color": "rs",
     "interactions": {
       "no-item": {
-        "message": "Ciao, sono Topolino! Per ottenere la chiave devi darmi il tuo lanciafiamme... sei pericoloso 🧐 "
+        "message": "Ciao, sono Topolino! Per ottenere la chiave devi darmi il tuo lanciafiamme
+         sei pericoloso 🧐 "
       },
       "L":{
         "message": "Grazie!",
@@ -264,7 +265,7 @@
     "color": "black",
     "interactions":{
        "no-item": {
-         "message": "Attento a non bruciare la casa però!!",
+         "message": "Diciamo che ... i fiammiferi sono utili ecco...!",
          "transform": " ",
          "pickup": true
        },

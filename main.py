@@ -6,7 +6,7 @@ from random import choice
 import sys
 import time
 
-
+borge = pygame.mixer.Sound("./borge.wav")
 lambo = pygame.mixer.Sound("./lambo.wav")
 senioraaa = pygame.mixer.Sound("./banana.wav")
 portaa = pygame.mixer.Sound("./door.wav")
@@ -127,6 +127,10 @@ class Entity:
 
                 elif action["message"] == "Grazie a questa molletta hai fatto partire la macchina ... è ora di fuggire!" or action["message"] == "Grazie alle chiavi hai fatto partire la macchina ... è ora di fuggire!":
                     lambo.play()
+
+                elif action["message"] == "Diciamo che ... i fiammiferi sono utili ecco...!":
+                    borge.play()
+
                 if "transform" in action:
                     transform = action["transform"]
                     if transform == " ":
