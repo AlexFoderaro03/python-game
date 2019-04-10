@@ -12,12 +12,12 @@
       "H": {
         "message":"bravoooooooooo",
         "transform": " ",
-        "game_over": "Hai spaccato la 🔑... bravoooooooooo gnnnn gnnnn gnuen 👉🏼👈🏼 "
+        "game_over": "Hai spaccato la 🔑... bravoooooooooo gnnnn gnnnn gnuen 👉👈"
 
       }
     }
   },
-  "'": {
+  "}": {
       "name": "chiave",
       "description": "è la chiave finale!",
       "color": "cyan",
@@ -39,7 +39,8 @@
       },
       "L":{
         "message": "Grazie!",
-        "transform": "'"
+        "remove_from_inventory": true,
+        "transform": "}"
       }
     }
   },
@@ -53,7 +54,8 @@
         },
         "C":{
           "message": "Hai visto che avere una 🕯 accesa è sempre utile!",
-          "transform": "L"
+          "transform": "L",
+          "remove_from_inventory": true
         },
         "*":{
           "message": "Diciamo che ... i fiammiferi sono utili ecco ... ",
@@ -78,7 +80,8 @@
         },
         "T":{
           "message": "Grazie",
-          "transform": " "
+          "transform": "}",
+          "remove_from_inventory": true
         }
     }
   },
@@ -224,7 +227,7 @@
         "no-item": {
           "message": "Non credo si apra con le mani ☠️ "
         },
-        "'":{
+        "}":{
           "message": "Complimenti! Sei riuscito ad aprire il lucchetto",
           "transform": " "
         }
@@ -242,7 +245,8 @@
         },
         "*": {
           "message": "Hai acceso la 🕯 !",
-          "transform": "C"
+          "transform": "C",
+          "remove_from_inventory": true
         }
     }
   },
@@ -270,7 +274,8 @@
        },
        "V": {
          "message": "Hai acceso la 🕯 ",
-         "transform": "C"
+         "transform": "C",
+         "remove_from_inventory": true
        }
     }
   },

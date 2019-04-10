@@ -3,8 +3,10 @@ pygame.init()
 import json
 from os import system
 from random import choice
-import sys
+import sys #per capire se il sistema sul quale si sta eseguendo il file sia windows (riga 28)
 import time
+
+#audio utilizzato
 
 borge = pygame.mixer.Sound("./borge.wav")
 lambo = pygame.mixer.Sound("./lambo.wav")
@@ -16,7 +18,9 @@ lanciafiiiamme = pygame.mixer.Sound("./flame.wav")
 topolinello = pygame.mixer.Sound("./topolino.wav")
 fiammiferino = pygame.mixer.Sound("fiammifero.wav")
 lucchetto = pygame.mixer.Sound("./lucchetto.wav")
+#
 
+#lista contenente stringhe utilizzata quando un entity nelle interactions, non ha la chiave "no-item"
 WRONG_INTERACTION_RESPONSES = [
     "non succede nulla",
     "non funziona",
@@ -27,6 +31,7 @@ WRONG_INTERACTION_RESPONSES = [
 ]
 IS_WINDOWS = sys.platform.lower() == "win32"
 
+#colori per il testo visualizzato
 class Fg:
     rs="\033[00m"
     black='\033[30m'
@@ -45,6 +50,7 @@ class Fg:
     pink='\033[95m'
     lightcyan='\033[96m'
 
+#colori per lo sfondo 
 class Bg:
     rs="\033[00m"
     black='\033[40m'
@@ -55,20 +61,22 @@ class Bg:
     yellow='\033[43m'
     blue='\033[44m'
     magenta='\033[45m'
-    purple='\033[35m'
-    lightgrey='\033[37m'
+    purple='\033[45m'
+    lightgrey='\033[47m'
     lightcyan='\033[96m'
     cyan='\033[46m'
     white='\033[47m'
 
+#classe statica con le direzioni
 class Directions:
     N = 0
     S = 1
     W = 2
     E = 3
 
-
+#classe Entità che accetta una room, una x e una y, mentre gli altri argomenti non sono necessari
 class Entity:
+    #funzione costruttore
     def __init__(self, room, x, y, graphic=None, color=None, name=None, description=None, interactions=None):
         self.room = room
         self.x = x
@@ -78,29 +86,44 @@ class Entity:
         self.name = name
         self.description = description
         self.interactions = interactions
+        #utilizzato self.game per non ripetere self.room.game + ...
         self.game = self.room.game
 
+    #funzione che prende come argomenti una graphic e una definition
     def set(self, graphic, definition):
         self.graphic = graphic
+        #getattr utilizzato per prendere un determinato elemento da un dizionario in modo programmatico. In questo caso viene utilizzato per prendere il colore assegnato ad un entità nel file entities.json dalla definition
         self.color = getattr(Bg, definition["color"])
+        #prende il nome dell'entità ==> ovvero la chiave del valore nome
         self.name = definition["name"]
+        #prende la descrizione dell'entità ==> ovvero la chiave del valore description
         self.description = definition["description"]
+        #.get se non trova un valore come chiave di interactions restituisce None
         self.interactions = definition.get("interactions")
 
+    #item può anche non essere presente
     def interact(self, item=None):
         if self.interactions:
             action = None
 
+            #se l'elemento non è = a None e se la grafica dell'elemento è nelle interazioni:
             if item is not None and item.graphic in self.interactions:
+                #azione = interazione[grafica] ==> prende la grafica dell'entity se l'item non è None e se è presente nelle interazioni
                 action = self.interactions[item.graphic]
+            #altrimenti se item è None e il valore "no-item" è presente nelle interazioni:
             elif item is None and "no-item" in self.interactions:
+                #l'azione è uguale alla chiave "no-item"
                 action = self.interactions["no-item"]
-
+            #se l'azione è = a None
             if action is not None:
+                #il player è uguale a se stesso
                 player = self.game.player
 
+                #se c'è un messaggio nell'azione viene stampato il messaggio
                 if "message" in action:
                     print(action["message"])
+
+                #messaggi utilizzati per riprodurre audio
                 if action["message"] == "bravoovovovog":
                     senioraaa.play()
 
@@ -131,16 +154,24 @@ class Entity:
                 elif action["message"] == "Diciamo che ... i fiammiferi sono utili ecco...!":
                     borge.play()
 
+                ########
+
+                #se il valore tranform è presente nell'azione transform è uguale a ciò che viene passato nel file entities.json
                 if "transform" in action:
                     transform = action["transform"]
                     if transform == " ":
+                        #se transform è = ad uno spazio vuoto, l'entity scompare e si forma uno spazio vuoto
                         self.room.entities.remove(self)
                     else:
+                        #altrimenti l'entità viene sostituita con un'altra
                         self.set(transform, Game.config["entities"][transform])
 
+                #se il valore pickup è in action:
                 if "pickup" in action:
+                    #l'inventatio del player[grafica] = self
                     player.inventory[self.graphic] = self
 
+                #se l'item non è None 
                 if item is not None and action.get("remove_from_inventory", False) == True :
                     del player.inventory[item.graphic]
 
