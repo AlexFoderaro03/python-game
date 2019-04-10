@@ -250,7 +250,7 @@
           "pickup": true
         },
         "*": {
-          "message": "Hai acceso la 🕯 !",
+          "message": "Hai acceso la 🕯 ! Hai 5 minuti prima che si spenga",
           "transform": "C",
           "remove_from_inventory": true
         }
@@ -279,7 +279,7 @@
          "pickup": true
        },
        "V": {
-         "message": "Hai acceso la 🕯 ",
+         "message": "Hai acceso la 🕯 ! Hai 5 minuti prima che si spenga",
          "transform": "C",
          "remove_from_inventory": true
        },
@@ -395,7 +395,7 @@
           "H": {
             "message":"bravoooooooooo",
             "transform": " ",
-            "game_over": "Hai spaccato la 🔑... bravoooooooooo daun gnnnn gnnnn gnuen 👉🏼👈🏼 "
+            "game_over": "Hai spaccato la 🔑... bravoooooooooo daun gnnnn gnnnn gnuen 👉👈 "
 
           }
       }
