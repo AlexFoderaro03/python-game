@@ -26,7 +26,11 @@
               "message": "la raccogli",
               "transform": " ",
               "pickup": true
-            }
+            },
+          "?": {
+            "message": "Ok CAMPIONEE!!! ",
+            "remove_from_inventory": true
+          }
           }
         },
   "T": {
@@ -59,7 +63,8 @@
         },
         "*":{
           "message": "Diciamo che ... i fiammiferi sono utili ecco ... ",
-          "transform": "L"
+          "transform": "L",
+          "remove_from_inventory": true
         },
         "H": {
           "message":"bravoovovovog",
@@ -229,7 +234,8 @@
         },
         "}":{
           "message": "Complimenti! Sei riuscito ad aprire il lucchetto",
-          "transform": " "
+          "transform": " ",
+          "remove_from_inventory": true
         }
     }
   },
@@ -276,6 +282,11 @@
          "message": "Hai acceso la 🕯 ",
          "transform": "C",
          "remove_from_inventory": true
+       },
+       "Y": {
+        "message": "Lanciafiamme in arrivo ...",
+        "transform": "L",
+        "remove_from_inventory": true
        }
     }
   },
