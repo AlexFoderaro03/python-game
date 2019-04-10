@@ -187,41 +187,52 @@ class Entity:
                     #l'inventatio del player[grafica] = self
                     player.inventory[self.graphic] = self
 
-                #se l'item non è None 
+                #se l'item non è None e remove_from_inventary = true 
                 if item is not None and action.get("remove_from_inventory", False) == True :
+                    #cancella la grafica dell'oggetto dall'inventario
                     del player.inventory[item.graphic]
 
+                #se "move_to_room" è presente in action il player si sposterà nella stanza che ha come chiave move_to_room
                 if "move_to_room" in action:
                     player.change_room(self.game.rooms[action["move_to_room"]])
 
+                #se game over è presente in action ==> game over
                 if "game_over" in action:
                     self.game.game_over(action["game_over"])
 
                 if "win" in action:
                     self.game.win(action["win"])
                 return
-
+        #viene stampato un elemento random dalla lista predefinita di risposte per interazioni senza successo
         print(choice(WRONG_INTERACTION_RESPONSES))
 
+    #serve per fare un override e per ridefinire la funzione quando viene transformata in una stringa ==> transforma in stringa anzichè far vedere la zona di memoria in cui si trova
     def __str__(self):
         return self.color + " " + self.graphic + " " + Fg.rs + Bg.rs
 
-
+#classe ereditaria da Entity
 class Mobile(Entity):
     def __init__(self, room, x, y, graphic, color):
         Entity.__init__(self, room, x, y, graphic, color)
 
+    #funzione che accetta una stanza
     def change_room(self, room):
+        #stanza attuale
         from_room_number = self.room.number
+        #stanza
         self.room = room
-        for entity in self.room.entities:
+        #per le entità nelle entità della stanza:
+        for entity in self.room.entities: #il ciclo for fin
+            #se la grafica dell'entità == al numero della stanza attuale
             if entity.graphic == str(from_room_number):
                 self.x = entity.x
                 self.y = entity.y
                 break
         else:
+            #viene presa l'istanza di un exception e fa crashare il programma
             raise Exception("this room has no {} door".format(from_room_number))
 
+    #funzione che accetta una direzione
     def move(self, direction):
         if direction == Directions.N and self.y > 0 and self.room.get_entity_at_coords(self.x, self.y - 1) is None:
             self.y -= 1
@@ -232,60 +243,69 @@ class Mobile(Entity):
         elif direction == Directions.E and self.x < self.room.w - 1 and self.room.get_entity_at_coords(self.x + 1, self.y) is None:
             self.x += 1
 
-
+#classe ereditaria da Mobile
 class Player(Mobile):
     def __init__(self, room, x, y):
-        Mobile.__init__(self, room, x, y, "G", Bg.orange)
-        self.inventory = {}
+        Mobile.__init__(self, room, x, y, "G", Bg.orange)#==> player
+        self.inventory = {} #== dizionario vuoto
 
+    #funzione che disegna l'inventario
     def draw_inventory(self):
         print("Inventario:")
+        #se la lunghezza dell'inventario è = a 0 ==> inventario = vuoto
         if len(self.inventory) == 0:
             print("\t- vuoto")
         else:
+            #per ogni entità nell'inventario:
             for entity in self.inventory.values():
+                #viene stampato l'entità (disegno), il suo nome e la descrizione
                 print("\t- {} {}: {}".format(entity, entity.name, entity.description))
 
+    #cambia la stanza, accetta una stanza
     def change_player_room(self, room):
         # self.room.number
         self.room = room
         # todo set player coords based on previous room
 
+    #funzione per entrare in contatto con le entità vicine
     def get_nearby_entities(self):
-        nearby_entities = []
+        nearby_entities = [] #lista per le entità vicine
         for y in range(-1, 2):
+            #da -1 a 1
             for x in range(-1, 2):
                 if not x == y == 0:
-                    entity = self.room.get_entity_at_coords(self.x + x, self.y + y)
-                    if entity and type(entity) is not Wall:
-                        nearby_entities.append(entity)
+                    entity = self.room.get_entity_at_coords(self.x + x, self.y + y) #entity: prende l'entità alle cordinate x e y
+                    if entity and type(entity) is not Wall: # se l'entità non è un muro:
+                        nearby_entities.append(entity) #vengono aggiunte alla lista creata in precedenza queste entità
 
-        return nearby_entities
+        return nearby_entities #restituisce le entità vicine
 
-
+#classe muro ereditata da Entity
 class Wall(Entity):
+    #costruttore: stanza, x, y
     def __init__(self, room, x, y):
         Entity.__init__(self, room, x, y, " ", Bg.black)
 
 
 class Game:
-    config = {}
-    for key in ("entities", "rooms", "game"):
-        file = open("./config/{}.json".format(key))
+    config = {} #dizionario
+    for key in ("entities", "rooms", "game"): #for chiave in valori : entità, stanze e gioco:  ... 
+        file = open("./config/{}.json".format(key)) #apre il file di 
         config[key] = json.load(file)
         file.close()
 
     def __init__(self):
-        self.rooms = []
-        for i in range(len(Game.config["rooms"])):
-            room_data = Game.config["rooms"][str(i)]
-            self.rooms.append(Room(self, i, room_data["color"], room_data["name"], room_data["description"]))
-
+        self.rooms = [] #lista vuotoa
+        for i in range(len(Game.config["rooms"])): #per i nel range della lunghezza della stanza
+            room_data = Game.config["rooms"][str(i)]#==> ?
+            self.rooms.append(Room(self, i, room_data["color"], room_data["name"], room_data["description"]))#aggiunge la stanza (colore, nome e descrizione)
+        #il player parte da una stanza e da determinate cords
         self.player = Player(self.rooms[Game.config["game"]["start_room"]], *Game.config["game"]["start_coords"])
 
         for room in self.rooms:
-            room.entities.insert(0, self.player)
+            room.entities.insert(0, self.player) #==> ?
 
+    #stanza attuale che viene restituita
     def get_current_room(self):
         return self.player.room
 
@@ -301,6 +321,7 @@ class Game:
         input()
         exit()
 
+    #funzione update ==> se è windows usa cls per cancellare il contenuto della schermata e ristamparlo mentre altrimenti usa clear
     def update(self):
         if IS_WINDOWS:
             system("cls")
@@ -313,14 +334,21 @@ class Game:
         self.player.draw_inventory()
         print()
         print("Azioni:")
+        #stampa l'elenco delle azioni
         print("\t- muovi con W A S D")
+        print("Tempo: ", countdown())
+        #entità vicine
         nearby_entities = self.player.get_nearby_entities()
+        #for entity in entità vicine:
         for entity in nearby_entities:
+            #stampa le interazioni possibili
             print("\t- {}: {}; interagisci con {}".format(entity.name, entity.description, entity))
+            #for inventory_entity nei valori dell'inventario del player:
             for inventory_entity in self.player.inventory.values():
+                #stampa possibili combinazioni fra oggetti dell'inventario con entità
                 print("\t- usa {} con {} con {}{}".format(inventory_entity.name, entity.name, inventory_entity, entity))
 
-        print("\t- QUIT per uscire")
+        print("\t- QUIT (oppure q!) per uscire")
 
         action = input().upper()
         if action == "W":
@@ -371,17 +399,20 @@ class Room:
                     e = Entity(self, x, y)
                     e.set(char, Game.config["entities"][char])
                     self.entities.append(e)
-
+    #accetta x e y e restituisce l'entità che si trova presso le cordinate (sempre se esiste)
     def get_entity_at_coords(self, x, y):
         for e in self.entities:
             if e.x == x and e.y == y:
                 return e
-
+    #stampa il nome, la descrizione
     def draw(self):
         print(self.name)
         print(self.description)
+        #per y nella lunghezza di height
         for y in range(self.h):
+            #per x nella lunghezza della width
             for x in range(self.w):
+                #e = self dell'entità che si trova a x e y
                 e = self.get_entity_at_coords(x, y)
                 if e:
                     print(e, end="")
