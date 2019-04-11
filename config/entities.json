@@ -125,7 +125,7 @@
   "@":{
     "name": "Quadro",
     "description": "un quadro di Van Gogh",
-    "color": "pink",
+    "color": "yellow",
     "interactions": {
       "no-item": {
         "message": "Dietro quel quadro c'è qualcosa !!!",
