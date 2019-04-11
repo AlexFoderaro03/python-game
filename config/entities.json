@@ -91,12 +91,12 @@
     }
   },
   "&":{
-    "name": "Molletta",
-    "description": "molletta per capelli",
+    "name": "Forcina",
+    "description": "",
     "color": "orange",
     "interactions": {
       "no-item": {
-        "message": "Una molletta per capelli può sempre essere utile...",
+        "message": "Può sempre essere utile...",
         "transform": " ",
         "pickup": true
       }
@@ -112,7 +112,7 @@
         "message": "Sai... ti servono le chiavi"
       },
       "&":{
-        "message": "Grazie a questa molletta hai fatto partire la macchina ... è ora di fuggire!",
+        "message": "Grazie a questa forcina hai fatto partire la macchina ... è ora di fuggire!",
         "win": "Sei fuggito da quel mostro!"
       },
     "B":{

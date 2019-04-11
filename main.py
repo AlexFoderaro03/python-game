@@ -69,6 +69,7 @@ class Bg:
 
 #classe statica con le direzioni
 class Directions:
+    #sennò avrei occupato delle variabili ==> è più comodo leggere direction.n
     N = 0
     S = 1
     W = 2
@@ -90,7 +91,7 @@ class Entity:
         #utilizzato self.game per non ripetere self.room.game + ...
         self.game = self.room.game
 
-    #funzione che prende come argomenti una graphic e una definition
+    #funzione che prende come argomenti una graphic e una definition 
     def set(self, graphic, definition):
         self.graphic = graphic
         #getattr utilizzato per prendere un determinato elemento da un dizionario in modo programmatico. In questo caso viene utilizzato per prendere il colore assegnato ad un entità nel file entities.json dalla definition
@@ -117,7 +118,7 @@ class Entity:
                 action = self.interactions["no-item"]
             #se l'azione è = a None
             if action is not None:
-                #il player è uguale a se stesso
+                #variabile utilizzata per comodità
                 player = self.game.player
 
                 #se c'è un messaggio nell'azione viene stampato il messaggio
@@ -149,7 +150,7 @@ class Entity:
                 elif action["message"] == "È la 🔑 giusta!":
                     lucchetto.play()
 
-                elif action["message"] == "Grazie a questa molletta hai fatto partire la macchina ... è ora di fuggire!" or action["message"] == "Grazie alle chiavi hai fatto partire la macchina ... è ora di fuggire!":
+                elif action["message"] == "Grazie a questa forcina hai fatto partire la macchina ... è ora di fuggire!" or action["message"] == "Grazie alle chiavi hai fatto partire la macchina ... è ora di fuggire!":
                     lambo.play()
 
                 elif action["message"] == "Diciamo che ... i fiammiferi sono utili ecco...!":
