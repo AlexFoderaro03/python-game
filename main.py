@@ -97,7 +97,7 @@ class Entity:
         self.color = getattr(Bg, definition["color"])
         #prende il nome dell'entità ==> ovvero la chiave del valore nome
         self.name = definition["name"]
-        #prende la descrizione dell'entità ==> ovvero la chiave del valore description
+        #prende la descrizione dell'entità ==> ovvero il valore dalla description
         self.description = definition["description"]
         #.get se non trova un valore come chiave di interactions restituisce None
         self.interactions = definition.get("interactions")
@@ -125,7 +125,7 @@ class Entity:
                     print(action["message"])
 
                 #messaggi utilizzati per riprodurre audio
-                if action["message"] == "bravoovovovog":
+                if action["message"] == "bravoovovovo":
                     senioraaa.play()
 
                 elif action["message"] == "si apre" or action["message"] == "si è aperta":
@@ -346,12 +346,16 @@ class Game:
             quit()
         else:
             item = None
+            #rimuove gli spazi
+            action = action.replace(" ", "")
+            #se l'oggetto ce l'ho nell'inventario lo sovrascrivo con un ogg nell'inventario ==> di default è None
             if len(action) > 1:
-                action = action.replace(" ", "")
                 item = self.player.inventory.get(action[0])
+                #se è più lunga di 1, trovo l'oggetto e ritorno al caso standard
                 action = action[1]
 
             for entity in nearby_entities:
+                #se l'elemento con il quale voglio interagire è nelle entità vicine ==> interagisce
                 if action == entity.graphic:
                     entity.interact(item)
                     input("premi un tasto per continuare...")
@@ -380,6 +384,7 @@ class Room:
                     self.entities.append(Wall(self, x, y))
                 elif char in Game.config["entities"]:
                     e = Entity(self, x, y)
+                    #fa un set delle entità dal file di configurazione 
                     e.set(char, Game.config["entities"][char])
                     self.entities.append(e)
     #accetta x e y e restituisce l'entità che si trova presso le cordinate (sempre se esiste)

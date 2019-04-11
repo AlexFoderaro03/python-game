@@ -67,7 +67,7 @@
           "remove_from_inventory": true
         },
         "H": {
-          "message":"bravoovovovog",
+          "message":"bravoovovovo",
           "transform": " ",
           "game_over": "Hai spaccato la 🔑... bravoooooooooo 👉👈 "
         }
@@ -395,7 +395,7 @@
           "H": {
             "message":"bravoooooooooo",
             "transform": " ",
-            "game_over": "Hai spaccato la 🔑... bravoooooooooo daun gnnnn gnnnn gnuen 👉👈 "
+            "game_over": "Hai spaccato la 🔑... bravoooooooooo 👉👈 "
 
           }
       }
