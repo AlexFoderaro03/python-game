@@ -12,7 +12,7 @@
       "H": {
         "message":"bravoooooooooo",
         "transform": " ",
-        "game_over": "Hai spaccato la 🔑... bravoooooooooo gnnnn gnnnn gnuen 👉👈"
+        "game_over": "Hai spaccato la 🔑... bravoooooooooo 👉👈"
 
       }
     }
@@ -54,7 +54,7 @@
     "color": "yellow",
     "interactions": {
         "no-item": {
-          "message": "Serve un altro oggetto da combinare per poter utilizzare questo strumento!"
+          "message": "Serve un altro oggetto per poter utilizzare questo strumento!"
         },
         "C":{
           "message": "Hai visto che avere una 🕯 accesa è sempre utile!",
@@ -69,7 +69,7 @@
         "H": {
           "message":"bravoovovovog",
           "transform": " ",
-          "game_over": "Hai spaccato la 🔑... bravoooooooooo daun gnnnn gnnnn gnuen 👉🏼👈🏼 "
+          "game_over": "Hai spaccato la 🔑... bravoooooooooo 👉👈 "
         }
     }
   },
@@ -279,7 +279,7 @@
          "pickup": true
        },
        "V": {
-         "message": "Hai acceso la 🕯 ! Hai 5 minuti prima che si spenga",
+         "message": "Hai acceso la 🕯 ",
          "transform": "C",
          "remove_from_inventory": true
        },

@@ -75,16 +75,6 @@ class Directions:
     E = 3
 
 
-#funzione countdown
-def countdown(tempo):
-    for i in range(tempo*60, -1):
-        os.system("clear")
-        print("                                                     Time: ", i)
-        time.sleep(1)
-        if i == tempo*60:
-            sys.exit()
-
-
 #classe Entità che accetta una room, una x e una y, mentre gli altri argomenti non sono necessari
 class Entity:
     #funzione costruttore
@@ -164,12 +154,6 @@ class Entity:
 
                 elif action["message"] == "Diciamo che ... i fiammiferi sono utili ecco...!":
                     borge.play()
-
-                ########
-                #messaggio per iniziare il countdown:
-                elif action["message"] == "Hai acceso la 🕯 ! Hai 5 minuti prima che si spenga.":
-                    countdown(5)
-                    action.get("remove_from_inventory", False) == True
 
 
                 #se il valore tranform è presente nell'azione transform è uguale a ciò che viene passato nel file entities.json
