@@ -320,7 +320,6 @@ class Game:
         print("Azioni:")
         #stampa l'elenco delle azioni
         print("\t- muovi con W A S D")
-        print("Tempo: ", countdown())
         #entità vicine
         nearby_entities = self.player.get_nearby_entities()
         #for entity in entità vicine:
