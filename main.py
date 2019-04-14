@@ -4,7 +4,7 @@ import json
 from os import system
 from random import choice
 import sys #per capire se il sistema sul quale si sta eseguendo il file sia windows (riga 28)
-import time
+# import time
 
 #audio utilizzato
 
