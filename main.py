@@ -3,7 +3,7 @@ pygame.init()
 import json
 from os import system
 from random import choice
-import sys #per capire se il sistema sul quale si sta eseguendo il file sia windows (riga 28)
+import sys #per capire se il sistema sul quale si sta eseguendo il file sia windows (riga 33)
 # import time
 
 #audio utilizzato
@@ -29,6 +29,7 @@ WRONG_INTERACTION_RESPONSES = [
     "non credo proprio",
     "non e'il caso"
 ]
+
 IS_WINDOWS = sys.platform.lower() == "win32"
 
 #colori per il testo visualizzato
@@ -250,7 +251,7 @@ class Player(Mobile):
     def change_player_room(self, room):
         # self.room.number
         self.room = room
-        # todo set player coords based on previous room
+        # todo (set player coords based on previous room)
 
     #funzione per entrare in contatto con le entità vicine
     def get_nearby_entities(self):
